@@ -1,6 +1,8 @@
 # Magatsu_Auto
 AutoHotKey script
+
 Automatically clicks on the gui elements as follows in an infinite loop:
+
 Ready -> OK -> autobattle icon -> skip -> Retry
 
 Only works on MuMu currently but feel free to edit line 38 in the main script if you want use anything else.
