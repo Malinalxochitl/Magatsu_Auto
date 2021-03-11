@@ -70,6 +70,7 @@ Initialize()
 ClickPic(image)
 {
 	GuiControl,, Status, Searching for %image%
+	global uid
 		
 	Found := 0
 	while (Found == 0) ;
@@ -78,6 +79,7 @@ ClickPic(image)
 		Sleep sleepTimer
 		Found := FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Count1 n0")
 	}
+	GuiControl,, Status, %image% found
 	Random, offsetX, -10, 10
 	Random, offSetY, -10, 10
 	FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Center1 x"offsetX " y"offSetY " Count0 n1")
