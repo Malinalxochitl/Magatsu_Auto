@@ -19,10 +19,11 @@ CoordMode, Pixel, Relative
 Gui, New
 Gui, +MaxSize250x100
 Gui, Margin, 5, 10
+Gui, Add, CheckBox, vAuto, Auto-Battle disabled?
 Gui, Add, Button, gInitialize vStartButton, Start
 Gui, Add, text,,Status:
 Gui, Add, Edit, r1 w200 vStatus ReadOnly
-Gui, Show, w250 h100 center
+Gui, Show, w250 h120 center
 return
 
 Initialize()
@@ -60,7 +61,12 @@ Initialize()
 	Loop { ;training loop
 		ClickPic("ready.png")
 		ClickPic("ok.png")
+		if (Auto == 0) {
 		ClickPic("battle.png")
+		}
+		else {
+		ClickPic("auto.png")
+		}
 		ClickPic("skip.png")
 		ClickPic("retry.png")
 	}
