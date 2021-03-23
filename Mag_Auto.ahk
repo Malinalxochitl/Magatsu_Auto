@@ -61,11 +61,14 @@ Initialize()
 	Loop { ;training loop
 		ClickPic("ready.png")
 		ClickPic("ok.png")
-		if (Auto == 0) {
-		ClickPic("battle.png")
-		}
-		else {
+		Gui, Submit, NoHide
+		if Auto = 1 
+		{
 		ClickPic("auto.png")
+		}
+		else 
+		{
+		ClickPic("battle.png")
 		}
 		ClickPic("skip.png")
 		ClickPic("retry.png")
