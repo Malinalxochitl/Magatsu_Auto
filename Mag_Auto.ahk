@@ -19,11 +19,11 @@ CoordMode, Pixel, Relative
 Gui, New
 Gui, +MaxSize250x100
 Gui, Margin, 5, 10
-Gui, Add, CheckBox, vAuto, Auto-Battle disabled?
-Gui, Add, Button, gInitialize vStartButton, Start
-Gui, Add, text,,Status:
+Gui, Add, DropDownList, Choose1 AltSubmit vMap, Default|Auto|4-10
+Gui, Add, Button, ym gInitialize vStartButton, Start
+Gui, Add, text,xm, Status:
 Gui, Add, Edit, r1 w200 vStatus ReadOnly
-Gui, Show, w250 h120 center
+Gui, Show, w250 h100
 return
 
 Initialize()
@@ -58,39 +58,87 @@ Initialize()
 		}
 	}
 	
-	Loop { ;training loop
-		ClickPic("ready.png")
-		ClickPic("ok.png")
-		Gui, Submit, NoHide
-		if Auto = 1 
-		{
-		ClickPic("auto.png")
-		}
-		else 
-		{
-		ClickPic("battle.png")
-		}
-		ClickPic("skip.png")
-		ClickPic("retry.png")
+	Gui, Submit, NoHide
+	if Map = 1
+	{
+		DefaultLoop()
+	}
+	else if Map = 2
+	{
+		AutoLoop()
+	}
+	else if Map = 3
+	{
+		Chapter_4_10Loop()
+	}
+	
+}
+
+Chapter_4_10Loop()
+{
+	Loop
+	{
+		ClickPic("Chapter4.png", -10, 10)
+		ClickPic("4-10.png", -10, 10)
+		ClickPic("ready.png", -10, 10)
+		ClickPic("ok.png", -10, 10)
+		ClickPic("battle.png", -10, 10)
+		ClickPic("skipScene.png", -10, 10)
+		ClickPic("ok2.png", -10, 10)
+		ClickPic("skipScene.png", -10, 10)
+		ClickPic("ok2.png", -10, 10)
+		ClickPic("skipScene.png", -10, 10)
+		ClickPic("ok2.png", -10, 10)
+		ClickPic("auto2.png", -15, 5)
+		ClickPic("skipScene.png", -10, 10)
+		ClickPic("ok2.png", -10, 10)
+		ClickPic("skip.png", -10, 10)
+		ClickPic("skipScene.png", -10, 10)
+		ClickPic("ok2.png", -10, 10)
+		ClickPic("Quests.png", -10, 10)
+	}
+}
+
+AutoLoop()
+{
+	Loop
+	{
+		ClickPic("ready.png", -10, 10)
+		ClickPic("ok.png", -10, 10)
+		ClickPic("auto.png", -15, 5)
+		ClickPic("skip.png", -10, 10)
+		ClickPic("retry.png", -10, 10)
+	}
+}
+
+DefaultLoop()
+{
+	Loop {
+		ClickPic("ready.png", -10, 10)
+		ClickPic("ok.png", -10, 10)
+		ClickPic("battle.png", -10, 10)
+		ClickPic("skip.png", -10, 10)
+		ClickPic("retry.png", -10, 10)
 	}
 }
 
 ;Clicks the provided image
-ClickPic(image)
+ClickPic(image, Y1, Y2)
 {
 	GuiControl,, Status, Searching for %image%
 	global uid
+	global Auto
 		
 	Found := 0
 	while (Found == 0) ;
 	{
-		Random, sleepTimer, 3000, 5000
+		Random, sleepTimer, 1000, 5000
 		Sleep sleepTimer
 		Found := FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Count1 n0")
 	}
 	GuiControl,, Status, %image% found
 	Random, offsetX, -10, 10
-	Random, offSetY, -10, 10
+	Random, offSetY, Y1, Y2
 	FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Center1 x"offsetX " y"offSetY " Count0 n1")
 	return
 }
