@@ -77,25 +77,27 @@ Initialize()
 Chapter_4_10Loop()
 {
 	Loop
-	{
-		ClickPic("Chapter4.png", -10, 10)
-		ClickPic("4-10.png", -10, 10)
-		ClickPic("ready.png", -10, 10)
-		ClickPic("ok.png", -10, 10)
-		ClickPic("battle.png", -10, 10)
-		ClickPic("skipScene.png", -10, 10)
-		ClickPic("ok2.png", -10, 10)
-		ClickPic("skipScene.png", -10, 10)
-		ClickPic("ok2.png", -10, 10)
-		ClickPic("skipScene.png", -10, 10)
-		ClickPic("ok2.png", -10, 10)
-		ClickPic("auto2.png", -15, 5)
-		ClickPic("skipScene.png", -10, 10)
-		ClickPic("ok2.png", -10, 10)
-		ClickPic("skip.png", -10, 10)
-		ClickPic("skipScene.png", -10, 10)
-		ClickPic("ok2.png", -10, 10)
-		ClickPic("Quests.png", -10, 10)
+	{	
+		ClickPic("Chapter4.png", -10, 10, 1)
+		ClickPic("4-10.png", -10, 10, 1)
+		ClickPic("ready.png", -10, 10, 1)
+		ClickPic("ok.png", -10, 10, 1)
+		ClickPic("battle.png", -10, 10, 1)
+		ClickPic("skipScene.png", -10, 10, 1)
+		ClickPic("ok2.png", -10, 10, 3)
+		ClickPic("skipScene.png", -10, 10, 1)
+		ClickPic("ok3.png", -10, 10, 1)
+		ClickPic("skipScene.png", -10, 10, 1)
+		ClickPic("ok2.png", -10, 10, 1)
+		ClickPic("skipScene.png", -10, 10, 1)
+		ClickPic("ok2.png", -10, 10, 1)
+		ClickPic("auto2.png", -15, 5, 1)
+		ClickPic("skipScene.png", -10, 10, 1)
+		ClickPic("ok2.png", -10, 10, 1)
+		ClickPic("skip.png", -10, 10, 1)
+		ClickPic("skipScene.png", -10, 10, 1)
+		ClickPic("ok2.png", -10, 10, 1)
+		ClickPic("Quests.png", -10, 10, 1)
 	}
 }
 
@@ -103,27 +105,27 @@ AutoLoop()
 {
 	Loop
 	{
-		ClickPic("ready.png", -10, 10)
-		ClickPic("ok.png", -10, 10)
-		ClickPic("auto.png", -15, 5)
-		ClickPic("skip.png", -10, 10)
-		ClickPic("retry.png", -10, 10)
+		ClickPic("ready.png", -10, 10, 1)
+		ClickPic("ok.png", -10, 10, 1)
+		ClickPic("auto.png", -15, 5, 1)
+		ClickPic("skip.png", -10, 10, 1)
+		ClickPic("retry.png", -10, 10, 1)
 	}
 }
 
 DefaultLoop()
 {
 	Loop {
-		ClickPic("ready.png", -10, 10)
-		ClickPic("ok.png", -10, 10)
-		ClickPic("battle.png", -10, 10)
-		ClickPic("skip.png", -10, 10)
-		ClickPic("retry.png", -10, 10)
+		ClickPic("ready.png", -10, 10, 1)
+		ClickPic("ok.png", -10, 10, 1)
+		ClickPic("battle.png", -10, 10, 1)
+		ClickPic("skip.png", -10, 10, 1)
+		ClickPic("retry.png", -10, 10, 1)
 	}
 }
 
 ;Clicks the provided image
-ClickPic(image, Y1, Y2)
+ClickPic(image, Y1, Y2, clicks)
 {
 	GuiControl,, Status, Searching for %image%
 	global uid
@@ -139,7 +141,7 @@ ClickPic(image, Y1, Y2)
 	GuiControl,, Status, %image% found
 	Random, offsetX, -10, 10
 	Random, offSetY, Y1, Y2
-	FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Center1 x"offsetX " y"offSetY " Count0 n1")
+	FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Center1 x"offsetX " y"offSetY " Count0 n"clicks " Sleep2500")
 	return
 }
 
