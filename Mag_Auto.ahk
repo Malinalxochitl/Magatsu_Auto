@@ -6,6 +6,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;ahk_class Qt5QWindowIcon
 ;ahk_exe NemuPlayer.exe
 
+if A_AhkVersion < 1.1.31.00
+{
+	MsgBox, Please update AutohotKey before running this script
+	ExitApp
+}
+
 if not A_IsAdmin
 {
    Run *RunAs "%A_ScriptFullPath%"  ; Requires v1.0.92.01+
@@ -59,73 +65,76 @@ Initialize()
 	}
 	
 	Gui, Submit, NoHide
-	if Map = 1
+	switch Map
 	{
+	case 1:
 		DefaultLoop()
-	}
-	else if Map = 2
-	{
+		return
+	case 2:
 		AutoLoop()
-	}
-	else if Map = 3
-	{
+		return
+	case 3:
 		Chapter_4_10Loop()
+		return
 	}
 	
 }
 
+;loops through Chapter 4 Part 10
 Chapter_4_10Loop()
 {
 	Loop
 	{	
-		ClickPic("Chapter4.png", -10, 10, 1)
-		ClickPic("4-10.png", -10, 10, 1)
-		ClickPic("ready.png", -10, 10, 1)
-		ClickPic("ok.png", -10, 10, 1)
-		ClickPic("battle.png", -10, 10, 1)
-		ClickPic("skipScene.png", -10, 10, 1)
-		ClickPic("ok2.png", -10, 10, 3)
-		ClickPic("skipScene.png", -10, 10, 1)
-		ClickPic("ok3.png", -10, 10, 1)
-		ClickPic("skipScene.png", -10, 10, 1)
-		ClickPic("ok2.png", -10, 10, 1)
-		ClickPic("skipScene.png", -10, 10, 1)
-		ClickPic("ok2.png", -10, 10, 1)
-		ClickPic("auto2.png", -15, 5, 1)
-		ClickPic("skipScene.png", -10, 10, 1)
-		ClickPic("ok2.png", -10, 10, 1)
-		ClickPic("skip.png", -10, 10, 1)
-		ClickPic("skipScene.png", -10, 10, 1)
-		ClickPic("ok2.png", -10, 10, 1)
-		ClickPic("Quests.png", -10, 10, 1)
+		ClickPic("Chapter4.png")
+		ClickPic("4-10.png")
+		ClickPic("ready.png")
+		ClickPic("ok.png")
+		ClickPic("battle.png")
+		ClickPic("skipScene.png")
+		ClickPic("ok2.png",,,,, 3)
+		ClickPic("skipScene.png",,,,, 2)
+		ClickPic("ok3.png")
+		ClickPic("skipScene.png")
+		ClickPic("ok2.png")
+		ClickPic("skipScene.png")
+		ClickPic("ok2.png")
+		ClickPic("autoNew.png",120,140)
+		ClickPic("skipScene.png")
+		ClickPic("ok2.png")
+		ClickPic("skip.png")
+		ClickPic("skipScene.png")
+		ClickPic("ok2.png")
+		ClickPic("Quests.png")
 	}
 }
 
+;loops through quest using quest objective button
 AutoLoop()
 {
 	Loop
 	{
-		ClickPic("ready.png", -10, 10, 1)
-		ClickPic("ok.png", -10, 10, 1)
-		ClickPic("auto.png", -15, 5, 1)
-		ClickPic("skip.png", -10, 10, 1)
-		ClickPic("retry.png", -10, 10, 1)
+		ClickPic("ready.png")
+		ClickPic("ok.png")
+		ClickPic("autoNew.png",120,140)
+		ClickPic("skip.png")
+		ClickPic("retry.png")
 	}
 }
 
+;loops through quest using autobattle button
 DefaultLoop()
 {
 	Loop {
-		ClickPic("ready.png", -10, 10, 1)
-		ClickPic("ok.png", -10, 10, 1)
-		ClickPic("battle.png", -10, 10, 1)
-		ClickPic("skip.png", -10, 10, 1)
-		ClickPic("retry.png", -10, 10, 1)
+		ClickPic("ready.png")
+		ClickPic("ok.png")
+		ClickPic("battle.png")
+		ClickPic("skip.png")
+		ClickPic("retry.png")
 	}
 }
 
-;Clicks the provided image
-ClickPic(image, Y1, Y2, clicks)
+;Clicks the provided image with adjusted coordinates and clicks if provided
+ClickPic(image, X1 := -10, X2 := 10, Y1 := -10, Y2 := 10, clicks := 1)
 {
 	GuiControl,, Status, Searching for %image%
 	global uid
@@ -134,17 +143,18 @@ ClickPic(image, Y1, Y2, clicks)
 	Found := 0
 	while (Found == 0) ;
 	{
-		Random, sleepTimer, 1000, 5000
+		Random, sleepTimer, 1000, 4000
 		Sleep sleepTimer
 		Found := FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Count1 n0")
 	}
 	GuiControl,, Status, %image% found
-	Random, offsetX, -10, 10
+	Random, offsetX, X1, X2
 	Random, offSetY, Y1, Y2
 	FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Center1 x"offsetX " y"offSetY " Count0 n"clicks " Sleep2500")
 	return
 }
 
+;restores or activates the window
 WinActivateRestore(force := 0)
 {
 	global Background
