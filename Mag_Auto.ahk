@@ -8,7 +8,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 if A_AhkVersion < 1.1.31.00
 {
-	MsgBox, Please update AutohotKey before running this script
+	MsgBox, Please update AutoHotKey before running this script
 	ExitApp
 }
 
@@ -25,7 +25,7 @@ CoordMode, Pixel, Relative
 Gui, New
 Gui, +MaxSize250x100
 Gui, Margin, 5, 10
-Gui, Add, DropDownList, Choose1 AltSubmit vMap, Default|Auto|4-10
+Gui, Add, DropDownList, Choose1 AltSubmit vMap, Default|Auto|4-10|Magatsu Conquest
 Gui, Add, Button, ym gInitialize vStartButton, Start
 Gui, Add, text,xm, Status:
 Gui, Add, Edit, r1 w200 vStatus ReadOnly
@@ -74,14 +74,31 @@ Initialize()
 		AutoLoop()
 		return
 	case 3:
-		Chapter_4_10Loop()
+		Chapter4_10Loop()
+		return
+	case 4:
+		MagatsuConquestLoop()
 		return
 	}
 	
 }
 
+;loops through spring fes conquest event
+MagatsuConquestLoop()
+{
+	Loop
+	{
+		ClickPic("ready2.png")
+		ClickPic("ok.png")
+		ClickPic("autoNew.png",120,140)
+		ClickPic("skip.png")
+		ClickPic("Quests.png")
+		ClickPic("[Conquest].png")
+	}
+}
+
 ;loops through Chapter 4 Part 10
-Chapter_4_10Loop()
+Chapter4_10Loop()
 {
 	Loop
 	{	
@@ -154,7 +171,7 @@ ClickPic(image, X1 := -10, X2 := 10, Y1 := -10, Y2 := 10, clicks := 1)
 	return
 }
 
-;restores or activates the window
+;restores and activates the window
 WinActivateRestore(force := 0)
 {
 	global Background
