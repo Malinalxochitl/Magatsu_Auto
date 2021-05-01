@@ -25,7 +25,7 @@ CoordMode, Pixel, Relative
 Gui, New
 Gui, +MaxSize250x100
 Gui, Margin, 5, 10
-Gui, Add, DropDownList, Choose1 AltSubmit vMap, Default|Auto|4-10|Magatsu Conquest
+Gui, Add, DropDownList, Choose1 AltSubmit vMap, Default|Auto|Ticket|4-10
 Gui, Add, Button, ym gInitialize vStartButton, Start
 Gui, Add, text,xm, Status:
 Gui, Add, Edit, r1 w200 vStatus ReadOnly
@@ -74,26 +74,23 @@ Initialize()
 		AutoLoop()
 		return
 	case 3:
-		Chapter4_10Loop()
+		TicketLoop()
 		return
 	case 4:
-		MagatsuConquestLoop()
+		Chapter4_10Loop()
 		return
-	}
-	
 }
 
-;loops through spring fes conquest event
-MagatsuConquestLoop()
+;loops through quest w/ ticket use
+TicketLoop()
 {
-	Loop
-	{
-		ClickPic("ready2.png")
+	Loop {
+		ClickPic("ready.png")
 		ClickPic("ok.png")
-		ClickPic("autoNew.png",120,140)
+		ClickPic("use.png")
+		ClickPic("battle.png")
 		ClickPic("skip.png")
-		ClickPic("Quests.png")
-		ClickPic("[Conquest].png")
+		ClickPic("retry.png")
 	}
 }
 
