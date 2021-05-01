@@ -79,6 +79,7 @@ Initialize()
 	case 4:
 		Chapter4_10Loop()
 		return
+	}
 }
 
 ;loops through quest w/ ticket use
