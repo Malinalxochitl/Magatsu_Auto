@@ -158,7 +158,7 @@ ClickPic(image, X1 := -10, X2 := 10, Y1 := -10, Y2 := 10, clicks := 1)
 	Found := 0
 	while (Found == 0) ;
 	{
-		Random, sleepTimer, 1000, 4000
+		Random, sleepTimer, 4000, 4500
 		Sleep sleepTimer
 		Found := FindClick(A_ScriptDir "\pics\"image, "r"uid " o50 Count1 n0")
 	}
